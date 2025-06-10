@@ -18,6 +18,9 @@ class SynthEngine
         void SetEnvelope(float attack, float decay);
         void SetModTarget(float target);
         void SetLfoShape(float shape);
+        void SetEnvelope(float attack, float decay, float sustain, float release);
+        void SetEnvelopeShape(float shape);
+        void SetVelocity(float velocity);
         void Process();
         float Generate();
 
