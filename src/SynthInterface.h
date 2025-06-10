@@ -17,13 +17,24 @@ class SynthInterface
     private:
         static constexpr int kNumPots = 6;
         static constexpr float kSnapThreshold = 0.02f; // Threshold for snap mode
-        static constexpr dsy_gpio_pin kPotPins[kNumPots] = {
-            daisy::DaisySeed::A0, daisy::DaisySeed::A1, daisy::DaisySeed::A2,
-            daisy::DaisySeed::A3, daisy::DaisySeed::A4, daisy::DaisySeed::A5};
+        static constexpr dsy_gpio_pin kPotPins[kNumPots] = 
+        {
+            daisy::DaisySeed::A0, 
+            daisy::DaisySeed::A1, 
+            daisy::DaisySeed::A2,
+            daisy::DaisySeed::A3, 
+            daisy::DaisySeed::A4, 
+            daisy::DaisySeed::A5
+            };
         static constexpr dsy_gpio_pin kModeBtnPin = daisy::DaisySeed::D12;
         static constexpr dsy_gpio_pin kResetBtnPin = daisy::DaisySeed::D13;
-        static constexpr dsy_gpio_pin kModeLedPin = daisy::DaisySeed::D21;
-        
+        static constexpr dsy_gpio_pin kModeLedPins[kNumModeLeds] = 
+        {
+            daisy::DaisySeed::D21,
+            daisy::DaisySeed::D22,
+            daisy::DaisySeed::D23
+        };
+
         daisy::DaisySeed* seed = nullptr;
         daisy::AnalogControl pots_[kNumPots];
         daisy::Switch mode_btn_;
@@ -40,4 +51,5 @@ class SynthInterface
 
         void ToggleMode();
         void EnterSnapMode();
+        void UpdateModeLeds();
 };

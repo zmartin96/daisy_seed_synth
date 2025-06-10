@@ -16,8 +16,11 @@ void SynthInterface::Init(DaisySeed*seed)
     mode_btn_.Init(seed_->GetPin(kModeBtnPin), AudioCallbackRate());
     reset_btn_.Init(seed_->GetPin(kResetBtnPin), AudioCallbackRate());
 
-    mode_led_.Init(seed_->GetPin(D21), AudioCallbackRate());
-    mode_led_.Write(false);
+    for (int i = 0; i < kNumModeLeds; ++i)
+    {
+        mode_leds_[i].Init(seed_->GetPin(kModeLedPins[i]), GPIO::Mode::OUTPUT);
+        mode_leds_[i].Write(false);
+    }
 
     modes_.push_back(new FilterMode());
     modes_.push_back(new LFOMode());
@@ -27,6 +30,7 @@ void SynthInterface::Init(DaisySeed*seed)
         mode->Init(seed_);
 
     EnterSnapMode();
+    UpdateModeLeds();
 }
 
 void SynthInterface::Process()
@@ -70,7 +74,7 @@ void SynthInterface::ApplyToSynth(SynthEngine& synth)
 void SynthInterface::ToggleMode()
 {
     current_mode_index_=++current_mode_index_ % modes_.size();
-    mode_led_.Write(current_mode_index_==1); // extend to more LEDs for more modes
+    UpdateModeLeds();
 }
 
 void SynthInterface::EnterSnapMode()
@@ -79,5 +83,14 @@ void SynthInterface::EnterSnapMode()
     {
         snap_targets_[i] = pot_values_[i];
         snapped_[i] = false;
+    }
+}
+
+void SynthInterface::UpdateModeLeds()
+{
+    for (int i = 0; i < kNumModeLeds; i++)
+    {
+        bool state = ((current_mode_index_ >> i) & 0x01);
+        mode_leds_[i].Write(state);
     }
 }
