@@ -1,0 +1,83 @@
+// src/SynthInterface.cpp
+#include "SynthInterface.h"
+#include "FilterMode.h"
+#include "LFOMode.h"
+#include "EnvelopeMode"
+
+using namespace daisy;
+
+void SynthInterface::Init(DaisySeed*seed)
+{
+    seed_ = seed;
+
+    for (int i = 0; i < kNumPots; i++)
+        pots_[i].Init(seed_->GetPin(kPotPins[i]), seed_->AudioCallbackRate());
+
+    mode_btn_.Init(seed_->GetPin(kModeBtnPin), AudioCallbackRate());
+    reset_btn_.Init(seed_->GetPin(kResetBtnPin), AudioCallbackRate());
+
+    mode_led_.Init(seed_->GetPin(D21), AudioCallbackRate());
+    mode_led_.Write(false);
+
+    modes_.push_back(new FilterMode());
+    modes_.push_back(new LFOMode());
+    modes_.push_back(new EnvelopeMode());
+
+    for (auto* mode : modes_) 
+        mode->Init(seed_);
+
+    EnterSnapMode();
+}
+
+void SynthInterface::Process()
+{
+    mode_btn_.Debounce();
+    reset_btn_.Debounce();
+
+    bool mode_pressed = mode_btn_.Pressed();
+
+    if (mode_pressed && !last_mode_btn_state_)
+        ToggleMode();
+
+    last_mode_btn_state_=mode_pressed;
+
+    for (int i = 0; i < kNumPots; i++)
+    {
+        pots_[i].Process();
+        float val = pots_[i].Value();
+
+        if (!snapped_[i])
+        {
+            float diff = fabsf(val - snap_targets_[i]);
+            if (diff < kSnapThreshold)
+            {
+                snapped_[i] = true;
+                pot_values_[i] = val;
+            }
+            else
+                pot_values_[i] = val;
+        }
+    }
+
+    modes_[current_mode_index_]->Process(_pot_values_);
+}
+
+void SynthInterface::ApplyToSynth(SynthEngine& synth)
+{
+    modes_[current_mode_index_]->ApplyToSynth(synth);
+}
+
+void SynthInterface::ToggleMode()
+{
+    current_mode_index_=++current_mode_index_ % modes_.size();
+    mode_led_.Write(current_mode_index_==1); // extend to more LEDs for more modes
+}
+
+void SynthInterface::EnterSnapMode()
+{
+    for (int i = 0; i < kNumPots; i++)
+    {
+        snap_targets_[i] = pot_values_[i];
+        snapped_[i] = false;
+    }
+}
