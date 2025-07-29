@@ -22,6 +22,6 @@ void LFOMode::ApplyToSynth(SynthEngine &synth)
     synth.SetLfoRate(rate_);
     synth.SetLfoDepth(depth_);
     synth.SetEnvelope(attack_,decay_);
-    synth.SetLfoModTarget(modulation_);
+    synth.SetModTarget(modulation_);
     synth.SetLfoShape(shape_);
 }

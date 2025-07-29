@@ -2,7 +2,8 @@
 #include "SynthInterface.h"
 #include "FilterMode.h"
 #include "LFOMode.h"
-#include "EnvelopeMode"
+#include "EnvelopeMode.h"
+#include <cmath>
 
 using namespace daisy;
 
@@ -13,8 +14,8 @@ void SynthInterface::Init(DaisySeed*seed)
     for (int i = 0; i < kNumPots; i++)
         pots_[i].Init(seed_->GetPin(kPotPins[i]), seed_->AudioCallbackRate());
 
-    mode_btn_.Init(seed_->GetPin(kModeBtnPin), AudioCallbackRate());
-    reset_btn_.Init(seed_->GetPin(kResetBtnPin), AudioCallbackRate());
+    mode_btn_.Init(seed_->GetPin(kModeBtnPin), seed_->AudioCallbackRate());
+    reset_btn_.Init(seed_->GetPin(kResetBtnPin), seed_->AudioCallbackRate());
 
     for (int i = 0; i < kNumModeLeds; ++i)
     {
@@ -63,7 +64,7 @@ void SynthInterface::Process()
         }
     }
 
-    modes_[current_mode_index_]->Process(_pot_values_);
+    modes_[current_mode_index_]->Process(pot_values_);
 }
 
 void SynthInterface::ApplyToSynth(SynthEngine& synth)

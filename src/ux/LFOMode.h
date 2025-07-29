@@ -20,4 +20,4 @@ private:
     float decay_ = 0.0f;
     float modulation_ = 0.0f;
     float shape_ = 0.0f;
-}
+};

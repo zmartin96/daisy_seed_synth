@@ -1,6 +1,6 @@
 // src/SynthEngine.h
 #pragma once
-#include "DaisySP.h"
+#include "daisysp.h"
 
 using namespace daisysp;
 
@@ -40,8 +40,11 @@ class SynthEngine
         float lfo_depth_ = 0;
         float env_attack_ = 0;
         float env_decay_ = 0;
+        float env_sustain_ = kEnvSustainLevel; // default sustain level
+        float env_release_ = kEnvReleaseTime; // default release time
         float mod_target_ = 0;
         float lfo_shape_ = 0;
+        float velocity_ = 0;
 
         // constants
         static constexpr float kPitchBaseFreq = 110.0f; // A2 pitch base frequency

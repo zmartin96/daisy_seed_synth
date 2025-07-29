@@ -18,7 +18,7 @@ class SequencerMode : public UXMode
         int current_step_ = 0; // current step index
 
         float tempo_ = 120.0f; // tempo bpm
-        float note_length_ = 0.5f // length of note in seconds
+        float note_length_ = 0.5f; // length of note in seconds
         float mod_depth_ = 1.0f; // modulation depth
         float mod_target_ = 0.0f; // modulation target (0-1)
         float pattern_shape_ = 0.0f; // pattern shape (0-1)

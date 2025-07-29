@@ -1,6 +1,6 @@
 // src/ux/UXMode.h
 #pragma once
-#include "DaisySeed.h"
+#include "daisy_seed.h"
 
 class SynthEngine;
 

@@ -34,8 +34,8 @@ void SynthEngine::SetFilter(float cutoff, float resonance)
     cutoff_ = cutoff;
     resonance_ = resonance;
 
-    filter.SetFreq(100.0f + cutoff_ * 10000.0f);
-    filter.SetRes(resonance_);
+    filter_.SetFreq(100.0f + cutoff_ * 10000.0f);
+    filter_.SetRes(resonance_);
 }
 
 void SynthEngine::SetWaveMix(float blend) 
@@ -51,7 +51,7 @@ void SynthEngine::SetFxMix(float mix)
 void SynthEngine::SetLfoRate(float rate) 
 { 
     lfo_rate_ = rate; 
-    filter_.SetFreq(rate*kLfoMaxRate) // 0-20Hz
+    lfo_.SetFreq(rate*kLfoMaxRate) // 0-20Hz
 }
 
 void SynthEngine::SetLfoDepth(float depth) 
@@ -63,8 +63,20 @@ void SynthEngine::SetEnvelope(float attack, float decay)
 {
     env_attack_ = attack;
     env_decay_ = decay;
-    envelope.SetAttackTime(attack_* kEnvelopeTimeScale);
-    envelope.SetDecayTime(decay_ * kEnvelopeTimeScale);
+    envelope_.SetAttackTime(env_attack_ * kEnvelopeTimeScale);
+    envelope_.SetDecayTime(env_decay_ * kEnvelopeTimeScale);
+}
+
+void SynthEngine::SetEnvelope(float attack, float decay, float sustain, float release)
+{
+    env_attack_ = attack * kEnvelopeTimeScale;
+    env_decay_ = decay * kEnvelopeTimeScale;
+    env_sustain_ = sustain* kEnvelopeTimeScale;
+    env_release_ = release * kEnvelopeTimeScale;
+    envelope_.SetAttackTime(env_attack_);
+    envelope_.SetDecayTime(env_decay_);
+    envelope_.SetSustainLevel(env_sustain_);
+    envelope_.SetReleaseTime(env_release_);
 }
 
 void SynthEngine::SetModTarget(float target) 
@@ -106,4 +118,14 @@ float SynthEngine::Generate()
         default: return enveloped * gain_; // default to no modulation
     }
 
+}
+
+void SynthEngine::SetVelocity(float velocity)
+{
+    velocity_ = velocity;
+}
+
+void SynthEngine::SetEnvelopeShape(float shape)
+{
+    lfo_shape_=shape; // crossfade
 }

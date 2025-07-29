@@ -41,5 +41,5 @@ int main(void)
 
     hw.StartAudio(audio_callback);
 
-    while 1 {} // loop
+    while (1) {} // loop
 }
