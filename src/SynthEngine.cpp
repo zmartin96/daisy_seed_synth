@@ -34,7 +34,7 @@ void SynthEngine::SetFilter(float cutoff, float resonance)
     cutoff_ = cutoff;
     resonance_ = resonance;
 
-    filter_.SetFreq(100.0f + cutoff_ * 10000.0f);
+    filter_.SetFreq(kFilterMinFreq + cutoff_ * (kFilterMaxFreq - kFilterMinFreq));
     filter_.SetRes(resonance_);
 }
 
@@ -109,7 +109,7 @@ float SynthEngine::Generate()
     float mod = lfo_value * lfo_depth_;
     float osc_val = osc1_.Process() * (1.0f - wave_mix_) + osc2_.Process() * wave_mix_; // blend oscillators
     float filtered = filter_.Process(osc_val + mod);
-    float enveloped = envelope_.Process() * filtered;
+    float enveloped = envelope_.Process() * filtered* velocity_;
 
     switch ((int)mod_target_) {
         case 0: return enveloped * gain_; // no modulation

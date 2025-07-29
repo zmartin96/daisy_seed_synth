@@ -44,7 +44,7 @@ class SynthEngine
         float env_release_ = kEnvReleaseTime; // default release time
         float mod_target_ = 0;
         float lfo_shape_ = 0;
-        float velocity_ = 0;
+        float velocity_ = kVelocitySensitivity; // default velocity sensitivity
 
         // constants
         static constexpr float kPitchBaseFreq = 110.0f; // A2 pitch base frequency
@@ -56,4 +56,5 @@ class SynthEngine
         static constexpr float kEnvSustainLevel = 1.0f; // sustain level for envelope
         static constexpr float kEnvReleaseTime = 0.05f; // default release time for envelope (0-0.05 seconds)
         static constexpr float kNumWaveforms = 4.0f; // 4 waveforms for LFO shape (sine, triangle, square, sawtooth)
+        static constexpr float kVelocitySensitivity = 1.0f; // default velocity sensitivity (0-1)
 };
