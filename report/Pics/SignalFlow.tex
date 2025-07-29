@@ -1,0 +1,16 @@
+\begin{tikzpicture}[node distance=1.5cm and 1.6cm]
+\node (pots) [input] {Potentiometers\\(A0--A5)};
+\node (buttons) [input, below=of pots] {Mode \& Reset\\Buttons (D12, D13)};
+\node (leds) [output, right=of buttons] {Mode LEDs\\(D21--D23)};
+\node (interface) [block, right=of pots] {SynthInterface};
+\node (mode) [block, right=of interface, yshift=-1.2cm] {UXMode};
+\node (engine) [block, right=of mode] {SynthEngine};
+\node (audio) [output, right=of engine] {Stereo Audio Out};
+
+\draw [arrow] (pots) -- (interface);
+\draw [arrow] (buttons) -- (interface);
+\draw [arrow] (interface) -- (leds);
+\draw [arrow] (interface) -- (mode);
+\draw [arrow] (mode) -- (engine);
+\draw [arrow] (engine) -- (audio);
+\end{tikzpicture}

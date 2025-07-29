@@ -1,0 +1,24 @@
+\section{System Architecture}
+
+\subsection{Core Components}
+\begin{itemize}
+    \item \textbf{SynthEngine}: Generates audio using oscillators, envelopes, LFOs, and filters.
+    \item \textbf{SynthInterface}: Manages hardware I/O and routes input to active UX modes.
+\end{itemize}
+
+\subsection{Audio Processing Loop}
+Real-time audio is processed via a callback function:
+
+\begin{lstlisting}[language=C++, caption={Audio callback structure}]
+float audio_callback(float** in, float** out, size_t size) {
+    for(size_t i = 0; i < size; i++) {
+        controls.Process();
+        synth.Process();
+        controls.ApplyToSynth(synth);
+        float signal = synth.Generate();
+        out[0][i] = signal;
+        out[1][i] = signal;
+    }
+    return 0.0f;
+}
+\end{lstlisting}

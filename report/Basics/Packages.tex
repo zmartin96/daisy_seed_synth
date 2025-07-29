@@ -1,0 +1,68 @@
+% --- Encoding & Fonts ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage{soul}
+
+% --- Document Layout ---
+\usepackage[a4paper, margin=1in]{geometry}
+\renewcommand{\baselinestretch}{1.25}
+
+% --- Graphics & TikZ ---
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{adjustbox}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usepackage{tikz-timing}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+
+% --- TikZ Styles (optional) ---
+\tikzstyle{block} = [rectangle, rounded corners, minimum width=3cm, minimum height=1.2cm, text centered, draw=black, fill=blue!10]
+\tikzstyle{input} = [rectangle, minimum width=2.2cm, minimum height=1.1cm, text centered, draw=black, fill=orange!20]
+\tikzstyle{output} = [rectangle, minimum width=2.5cm, minimum height=1.1cm, text centered, draw=black, fill=green!20]
+\tikzstyle{arrow} = [thick,->,>=Stealth]
+
+% --- Math & Listings ---
+\usepackage{amsmath, amssymb}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red!70!black},
+    showstringspaces=false,
+    tabsize=2,
+    captionpos=b
+}
+
+% --- Tables ---
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{array}
+\usepackage[table]{xcolor}
+
+% --- Headers/Footers ---
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\lhead{Daisy Seed Synth}
+\rhead{\today}
+\fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+
+% --- Hyperlinks ---
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{nameref}
+\usepackage{hypcap}

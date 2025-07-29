@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+    \foreach \x/\label in {
+        0/{Attack},
+        1/{Decay},
+        2/{Sustain},
+        3/{Release},
+        4/{Velocity},
+        5/{Env Shape}
+    } {
+        \node[draw, circle, minimum size=1.4cm, font=\small] at (\x*2, 0) {\label};
+        \node at (\x*2, -1) {Pot \the\numexpr\x+1};
+    }
+\end{tikzpicture}

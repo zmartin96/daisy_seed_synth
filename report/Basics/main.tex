@@ -1,0 +1,24 @@
+\documentclass[14pt]{extarticle}
+\input{Basics/Packages.tex}
+
+% Custom commands/macros (optional)
+\newcommand\myblockquote[2]{%
+  \blockquote{\hspace*{2em}\emph{`#1'}\hfill(#2)}\par}
+
+\begin{document}
+\input{Basics/frontpage}
+\clearpage
+{\footnotesize\tableofcontents}
+\clearpage
+\input{Sections/Intro}
+\input{Sections/Hardware}
+\input{Sections/Architecture}
+\input{Sections/UxModes}
+\input{Sections/Synthesis}
+\input{Sections/Future}
+\input{Sections/Conclusion}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}

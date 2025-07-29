@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+    \foreach \x/\label in {
+        0/{Rate},
+        1/{Depth},
+        2/{Atk},
+        3/{Dec},
+        4/{Mod Target},
+        5/{LFO Shape}
+    } {
+        \node[draw, circle, minimum size=1.4cm, font=\small] at (\x*2, 0) {\label};
+        \node at (\x*2, -1) {Pot \the\numexpr\x+1};
+    }
+\end{tikzpicture}
